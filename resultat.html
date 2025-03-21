@@ -1,91 +1,235 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
-	<style type="text/css">
-		*{
-			font-family:helvetica;
-		}
-		body{
-			background-image:linear-gradient(to top,blue,skyblue,blue);
-		}
-		h1{
-			text-align:center;
-			color:white;
-			font-size:35pt;
-			text-decoration:underline;
-			text-decoration-color:cornflowerblue;
-			font-weight:bolder;
-			font-variant:small-caps;
-			letter-spacing:7px;
-			text-shadow:30px 30px 30px black;
-		}
-		.container{
-			display:flex;
-			flex-direction:column;
-			align-items:center;
-			justify-content:space-around;
-			height:600px;
-		}
-		a{
-			text-decoration:none;
-			width:80%;
-			color:black;
-		}
-		button{
-			width:280px;
-			font-size:25pt;
-			border:solid 8px black;
-			border-left:none;
-			border-right:none;
-			border-top-right-radius:50%;
-			border-top-left-radius:10%;
-			border-bottom-left-radius:50%;
-			border-bottom-right-radius:8%;
-			color:blue;
-			font-weight:bold;
-			padding-left:10px;
-			box-shadow:10px 10px 10px black;
-			margin-bottom:28px;
-			margin-left:520px;
-			margin-top:100px;
-		}
-		div{
-			margin-left:170px;
-			color:white;
-			font-weight:bold;
-			font-size:30pt;
-			width:800px;
-			color:white;
-			margin-top:100px;
-		}
-	</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Game Results</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #0ea5e9;
+      --dark: #1e3a8a;
+      --light: #e0f2fe;
+      --accent: #f59e0b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--dark), var(--primary), var(--secondary));
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      text-align: center;
+      font-weight: 800;
+      letter-spacing: 3px;
+      position: relative;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      color: white;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--accent);
+      border-radius: 4px;
+    }
+
+    .result-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
+    }
+
+    .result-message {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .score {
+      font-size: 4rem;
+      font-weight: bold;
+      color: var(--accent);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      margin: 1.5rem 0;
+    }
+
+    .points {
+      font-size: 1.5rem;
+      vertical-align: super;
+      color: var(--light);
+    }
+
+    .button {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 1.25rem;
+      font-weight: bold;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      margin-top: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+      background: #e67e22;
+    }
+
+    .button:active {
+      transform: translateY(1px);
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container>* {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+
+    .result-card {
+      animation: fadeIn 0.8s ease-out 0.2s forwards;
+      opacity: 0;
+    }
+
+    .button {
+      animation: fadeIn 0.6s ease-out 0.6s forwards;
+      opacity: 0;
+    }
+
+    /* Responsive design */
+    @media screen and (max-width: 768px) {
+      h1 {
+        font-size: 2.25rem;
+      }
+
+      .result-message {
+        font-size: 1.25rem;
+      }
+
+      .score {
+        font-size: 3rem;
+      }
+
+      .button {
+        font-size: 1.1rem;
+        padding: 0.875rem 1.75rem;
+      }
+
+      .result-card {
+        padding: 2rem;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      .result-message {
+        font-size: 1rem;
+      }
+
+      .score {
+        font-size: 2.5rem;
+      }
+
+      .button {
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
+      }
+
+      .result-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <div class="container">
+    <h1>Votre Résultat</h1>
 
-	<h1> Votre Resultat </h1>
-	<div id='d1'>
-		
-	</div>
+    <div class="result-card">
+      <div class="result-message" id="resultMessage"></div>
+      <div class="score"><span id="scoreValue"></span><span class="points">pts</span></div>
+      <a href="acceuil.html" class="button">Rejouer</a>
+    </div>
+  </div>
 
-	<button><a href='acceuil.html'> Rejouer </a></button>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const url = new URLSearchParams(window.location.search);
+      const temp = url.get("temp");
+      const score = url.get("score");
 
-	<script type="text/javascript">
-		let d1 = document.getElementById('d1');
-		let loseSound = document.getElementById('loseSound');
-			var url = new URLSearchParams(window.location.search);
-			var variable1 = url.get("temp");
-			var variable2 = url.get("score");
+      const resultMessage = document.getElementById('resultMessage');
+      const scoreValue = document.getElementById('scoreValue');
 
-			if (variable1 == 0) {
-			  d1.innerHTML = ' + Vous avez dépassé le temps <br> + Votre score est : <mark>'+variable2+'pts </mark>';
-			}else{
-				d1.innerHTML = ' + GAME OVER  votre score est : <mark>'+variable2+' pts </mark>';
-			}
+      // Set score value
+      scoreValue.textContent = score;
 
-	</script>
-
+      // Set appropriate message
+      if (temp == 0) {
+        resultMessage.textContent = "Vous avez dépassé le temps!";
+      } else {
+        resultMessage.textContent = "GAME OVER";
+      }
+    });
+  </script>
 </body>
+
 </html>
